@@ -4,7 +4,6 @@
   "description": "Near empty smaple discord text game application",
   "main": "src/app/app.ts",
   "textGameEntryPoint": "app.js",
-  "multiplayer": "true",
   "languages": ["en"],
   "scripts": {
     "clean": "rimraf build",

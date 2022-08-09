@@ -1,9 +1,10 @@
 {
   "name": "discord-sample-game-seed",
   "version": "0.0.1",
-  "description": "Near empty smaple discord text game application",
+  "description": "Near empty sample discord text game application",
   "main": "src/app/app.ts",
   "textGameEntryPoint": "app.js",
+  "autoCreateUserChannels": true,
   "languages": [
     "en"
   ],
@@ -15,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "discord-text-games-api": "0.0.1"
+    "discord-text-games-api": "0.0.5"
   },
   "devDependencies": {
     "@types/node": "18.0.5",

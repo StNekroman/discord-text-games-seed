@@ -13,7 +13,7 @@ export default class SampleSeedGame implements GamePluginEntryPoint {
         return Promise.resolve();
     }
 
-    public destroy(saveBundle : Serializable): Promise<void> {
+    public destroy(): Promise<Serializable | void> {
         return Promise.resolve();
     }
 
@@ -30,17 +30,17 @@ export default class SampleSeedGame implements GamePluginEntryPoint {
     }
 
     private handleJoin(event : JoinGameEvent) {
-
-        this.discordApi.sendMessage(event.user.id, `Hello user <@${event.user.id}>`).then((messageDescriptor) => {
+        this.discordApi.sendMessageToUser(event.user.id, `Hello user <@${event.user.id}>`).then((messageDescriptor) => {
             console.log("join message delivered, message id = " + messageDescriptor.messageId);
         });
     }
 
     private handleMessage(event : MessageGameEvent) {
+        console.log(event);
 
         if (event.text === "button") {
             // user wants button - generate it for him!
-            this.discordApi.sendMessage(event.user.id, `<@${event.user.id}>'s message was:\n ${event.text}`, {
+            this.discordApi.sendMessageToUser(event.user.id, `<@${event.user.id}>'s message was:\n ${event.text}`, {
                 components: [
                     new ActionRow([
                         new Button({

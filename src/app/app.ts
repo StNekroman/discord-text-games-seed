@@ -1,19 +1,19 @@
 import {
-    ActionRow, Button, ButtonClickGameEvent, ButtonStyle, DiscordApi, EventType, GameEvent, GamePluginEntryPoint, JoinGameEvent, MessageGameEvent, SelectMenu, SelectMenuChangedGameEvent, SelectOption, Serializable
+    ActionRow, Button, ButtonClickGameEvent, ButtonStyle, DiscordApi, EventType, GameEvent, GamePluginEntryPoint, JoinGameEvent, MessageGameEvent, SelectMenu, SelectMenuChangedGameEvent, SelectOption
 } from "discord-text-games-api";
 
 
-export default class SampleSeedGame implements GamePluginEntryPoint {
+export default class SampleSeedGame implements GamePluginEntryPoint<void> {
     public discordApi !: DiscordApi;
 
     constructor(args ?: string) {
 	}
 
-    public initialize(saveBundle ?: Serializable): Promise<unknown> {
+    public initialize(): Promise<void> {
         return Promise.resolve();
     }
 
-    public destroy(): Promise<Serializable | void> {
+    public destroy(): Promise<void> {
         return Promise.resolve();
     }
 

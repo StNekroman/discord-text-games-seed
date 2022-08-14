@@ -2,6 +2,7 @@ import {
     ActionRow, Button, ButtonClickGameEvent, ButtonStyle, DiscordApi, EventType, GameEvent, GamePluginEntryPoint, JoinGameEvent, MessageGameEvent, SelectMenu, SelectMenuChangedGameEvent, SelectOption
 } from "discord-text-games-api";
 
+import fs from "fs";
 
 export default class SampleSeedGame implements GamePluginEntryPoint<void> {
     public discordApi !: DiscordApi;
@@ -45,12 +46,12 @@ export default class SampleSeedGame implements GamePluginEntryPoint<void> {
                     new ActionRow([
                         new Button({
                             style: ButtonStyle.Primary,
-                            label: "Test Button1",
+                            label: "Click to disable",
                             custom_id: "button1"
                         }),
                         new Button({
                             style: ButtonStyle.Danger,
-                            label: "Test Button2",
+                            label: "Click to disable",
                             emoji: {
                                 name: "⚔️"
                             },
@@ -77,7 +78,7 @@ export default class SampleSeedGame implements GamePluginEntryPoint<void> {
                     new ActionRow([
                         new Button({
                             style: ButtonStyle.Primary,
-                            label: "Test Button3, row3",
+                            label: "Submit image",
                             custom_id: "button3"
                         })
                     ])
@@ -89,7 +90,17 @@ export default class SampleSeedGame implements GamePluginEntryPoint<void> {
 
     private handleButtonClick(event : ButtonClickGameEvent) {
         // do something
-        this.discordApi.setControlEnabled(event.channelId, event.messageId, event.buttonId, false);
+        if (event.buttonId === "button3") {
+            if (fs.existsSync("%gameDefDir%/sample.png")) {
+                this.discordApi.sendMessageToUser(event.user.id, "image", {
+                    files: ["%gameDefDir%/sample.png"]
+                });
+            } else {
+                console.log("file not exists");
+            }
+        } else {
+            this.discordApi.setControlEnabled(event.channelId, event.messageId, event.buttonId, false);
+        }
     }
 
     private handleSelectChange(event : SelectMenuChangedGameEvent) {

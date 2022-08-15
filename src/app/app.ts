@@ -3,6 +3,7 @@ import {
 } from "discord-text-games-api";
 
 import fs from "fs";
+import path from "path";
 
 export default class SampleSeedGame implements GamePluginEntryPoint<void> {
     public discordApi !: DiscordApi;
@@ -38,6 +39,16 @@ export default class SampleSeedGame implements GamePluginEntryPoint<void> {
 
     private handleMessage(event : MessageGameEvent) {
         console.log(event);
+
+        event.attachments?.map(attachment => {
+            return fs.promises.readFile(attachment).then(buffer => {
+                const filename = path.parse(attachment).base;
+                return Promise.all([
+                    fs.promises.rm(attachment), //we don't need that any more
+                    this.discordApi.sendMessageToUser(event.user.id, `Attachment received. Content of the file ${filename} is:\n` + "```"  + buffer + "```")
+                ]);
+            });
+        });
 
         if (event.text === "button") {
             // user wants button - generate it for him!

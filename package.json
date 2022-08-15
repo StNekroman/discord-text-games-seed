@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "discord-text-games-api": "0.0.9"
+    "discord-text-games-api": "0.0.10"
   },
   "devDependencies": {
     "@types/node": "18.7.3",
